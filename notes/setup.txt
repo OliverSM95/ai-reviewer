@@ -1,0 +1,64 @@
+# AI Reviewer — Setup & Start Guide
+
+## First Time Setup (do this once)
+
+1. Open WSL terminal in VS Code (Ctrl + backtick)
+   - Bottom left should show "WSL: Ubuntu"
+
+2. Go to your project
+   cd ~/aiReviewer/ai-reviewer
+
+4. Make sure Docker Desktop is running (check taskbar)
+
+5. Go to project root (where docker-compose.yml lives)
+   cd ~/aiReviewer/ai-reviewer
+
+6. Start the backend
+   docker compose up
+
+7. Check it works — open browser and go to:
+   http://localhost:8000/health
+   Should return: {"status": "ok"}
+
+8. Load the Chrome extension
+   - Go to chrome://extensions
+   - Developer Mode ON (top right toggle)
+   - Click "Load unpacked"
+   - Select your /extension folder
+
+
+## Stopping Everything
+
+In the terminal where docker is running:
+   Ctrl + C
+
+Or from a different terminal:
+   docker compose down
+
+
+## Rebuilding (do this if you change requirements.txt)
+
+   docker compose up --build
+
+
+## Common Fixes
+
+Problem: "Cannot connect to Docker daemon"
+Fix: Open Docker Desktop and wait 30 seconds, then try again
+
+Problem: Port 8000 already in use
+Fix: docker compose down, then try again
+
+Problem: Changes to code not showing
+Fix: Make sure volumes is in your docker-compose.yml (it is by default)
+
+Problem: .env not loading
+Fix: Check the file is named exactly ".env" with no extra extension
+
+
+## test
+python3 app.py
+
+curl -X POST http://localhost:8080/review \
+  -H "Content-Type: application/json" \
+  -d '{"reviews": ["Great product", "Broke after a week"]}'

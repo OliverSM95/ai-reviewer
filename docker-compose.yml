@@ -1,0 +1,9 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"       # your Mac/Windows can hit localhost:8000
+    volumes:
+      - ./backend:/app    # live reload - edit code, container updates instantly
+    env_file:
+      - ./backend/.env    # loads your API keys safely
